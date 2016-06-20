@@ -69,17 +69,16 @@ namespace JustWareApiIntro
 			return null;
 		}
 
-		public Phone AddPhones(JustWareApiClient client, Name name)
+		public Phone AddPhones(JustWareApiClient client, int nameId)
 		{
 			//Create Phone object
 			Phone phone = new Phone();
 
 			//Fill out information
 			phone.Operation = OperationType.Insert;
-			phone.TempID = "ID1";
 			phone.TypeCode = "HP";
 			phone.Number = "111-111-1111";
-			phone.NameID = name.ID;
+			phone.NameID = nameId;
 
 			//Submit
 			List<Key> keys = client.Submit(phone);
@@ -99,7 +98,6 @@ namespace JustWareApiIntro
 			//Create object and fill out inof
 			Phone phone = new Phone();
 			phone.Operation = OperationType.Insert;
-			phone.TempID = "ID1";
 			phone.TypeCode = "HP";
 			phone.Number = "111-111-1111";
 			name.Phones.Add(phone);
@@ -111,13 +109,13 @@ namespace JustWareApiIntro
 			return client.GetPhone(phoneId);
 		}
 
-		public Email AddEmail(JustWareApiClient client, Name name)
+		public Email AddEmail(JustWareApiClient client, int nameId)
 		{
 			Email email = new Email();
 			email.Operation = OperationType.Insert;
 			email.TypeCode = "BUS";
 			email.Address = "someone@somewhere.com";
-			email.NameID = name.ID;
+			email.NameID = nameId;
 
 			List<Key> keys = client.Submit(email);
 			int emailId = keys[0].NewID;
@@ -126,7 +124,7 @@ namespace JustWareApiIntro
 			return newEmail;
 		}
 
-		public Address AddAddresses(JustWareApiClient client, Name name)
+		public Address AddAddresses(JustWareApiClient client, int nameId)
 		{
 			Address address = new Address();
 			address.Operation = OperationType.Insert;
@@ -135,7 +133,7 @@ namespace JustWareApiIntro
 			address.City = "Logan";
 			address.Zip = "84405";
 			address.StreetAddress = "843 South 100 West";
-			address.NameID = name.ID;
+			address.NameID = nameId;
 
 			List<Key> keys = client.Submit(address);
 			int addressId = keys[0].NewID;
@@ -144,12 +142,12 @@ namespace JustWareApiIntro
 			return newAddress;
 		}
 
-		public NameAttribute AddNameAttributes(JustWareApiClient client, Name name)
+		public NameAttribute AddNameAttributes(JustWareApiClient client, int nameId)
 		{
 			NameAttribute attribute = new NameAttribute();
 			attribute.Operation = OperationType.Insert;
 			attribute.TypeCode = "WARR";
-			attribute.NameID = name.ID;
+			attribute.NameID = nameId;
 
 			List<Key> keys = client.Submit(attribute);
 			int attributeId = keys[0].NewID;
@@ -158,16 +156,15 @@ namespace JustWareApiIntro
 			return newAttribute;
 		}
 
-		public NameEvent AddNameEvents(JustWareApiClient client, Name name)
+		public NameEvent AddNameEvents(JustWareApiClient client, int nameId)
 		{
 			NameEvent nameEvent = new NameEvent();
 			nameEvent.Operation = OperationType.Insert;
 			nameEvent.EventDate = DateTime.Now;
 			nameEvent.EventEndDate = DateTime.Now.AddHours(2);
 			nameEvent.TypeCode = "ARR";
-			nameEvent.NameID = name.ID;
+			nameEvent.NameID = nameId;
 			nameEvent.Title = "My Name Event";
-			name.Events.Add(nameEvent);
 
 			List<Key> keys = client.Submit(nameEvent);
 			int nameEventId = keys[0].NewID;
@@ -176,14 +173,14 @@ namespace JustWareApiIntro
 			return newNameEvent;
 		}
 
-		public NameNote AddNameNotes(JustWareApiClient client, Name name)
+		public NameNote AddNameNotes(JustWareApiClient client, int nameId)
 		{
 			NameNote note = new NameNote();
 			note.Operation = OperationType.Insert;
 			note.DateTaken = DateTime.Now;
 			note.Notes = "Some notes";
-			note.TakenBy = name.ID;
-			note.NameID = name.ID;
+			note.TakenBy = nameId;
+			note.NameID = nameId;
 
 			List<Key> keys = client.Submit(note);
 			int noteId = keys[0].NewID;
@@ -192,7 +189,7 @@ namespace JustWareApiIntro
 			return newNote;
 		}
 
-		public NameTask AddNameTask(JustWareApiClient client, Name name)
+		public NameTask AddNameTask(JustWareApiClient client, int nameId)
 		{
 			NameTask task = new NameTask();
 			task.Operation = OperationType.Insert;
@@ -200,7 +197,7 @@ namespace JustWareApiIntro
 			task.EventEndDate = DateTime.Now.AddHours(1);
 			task.TypeCode = "TASK";
 			task.Title = "My Name Task";
-			task.NameID = name.ID;
+			task.NameID = nameId;
 
 			List<Key> keys = client.Submit(task);
 			int taskId = keys[0].NewID;

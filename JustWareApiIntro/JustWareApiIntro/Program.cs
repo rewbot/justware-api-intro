@@ -21,33 +21,35 @@ namespace JustWareApiIntro
 				return;
 			}
 			//Verify that connection is working
-			int nameId = client.GetCallerNameID();
-			Console.WriteLine("Caller NameID: " + nameId);
+			int callerNameId = client.GetCallerNameID();
+			Console.WriteLine("Caller NameID: " + callerNameId);
 
 			//Name Insert
 			NameInsertUtilities insertUtil = new NameInsertUtilities();
 			Name name = insertUtil.InsertName(client);
-			Phone phone = insertUtil.AddPhones(client, name);
-			Address address = insertUtil.AddAddresses(client, name);
-			Email email = insertUtil.AddEmail(client, name);
-			NameEvent nameEvent = insertUtil.AddNameEvents(client, name);
-			NameAttribute nameAttribute = insertUtil.AddNameAttributes(client, name);
-			NameNote nameNote = insertUtil.AddNameNotes(client, name);
-			NameTask nameTask = insertUtil.AddNameTask(client, name);
+
+			int nameId = name.ID;
+			Phone phone = insertUtil.AddPhones(client, nameId);
+			Address address = insertUtil.AddAddresses(client, nameId);
+			Email email = insertUtil.AddEmail(client, nameId);
+			NameEvent nameEvent = insertUtil.AddNameEvents(client, nameId);
+			NameAttribute nameAttribute = insertUtil.AddNameAttributes(client, nameId);
+			NameNote nameNote = insertUtil.AddNameNotes(client, nameId);
+			NameTask nameTask = insertUtil.AddNameTask(client, nameId);
 
 			Console.WriteLine("\nNew Name Information:\n");
 			OutputNameInformation(GetNameWithCollections(client, name));
 
 			//Name Update
 			NameUpdateUtilities updateUtil = new NameUpdateUtilities();
-			Name updatedName = updateUtil.UpdateName(client, name);
-			Phone updatedPhone = updateUtil.UpdatePhones(client, phone);
-			Address updatedAddress = updateUtil.UpdateAddresses(client, address);
-			Email updatedEmail = updateUtil.UpdateEmail(client, email);
-			NameEvent updatedNameEvent = updateUtil.UpdateNameEvents(client, nameEvent);
-			NameAttribute updatedNameAttribute = updateUtil.UpdateNameAttributes(client, nameAttribute);
-			NameNote updatedNameNote = updateUtil.UpdateNameNotes(client, nameNote);
-			NameTask updatedNameTask = updateUtil.UpdateNameTasks(client, nameTask);
+			Name updatedName = updateUtil.UpdateName(client, nameId);
+			Phone updatedPhone = updateUtil.UpdatePhones(client, phone.ID);
+			Address updatedAddress = updateUtil.UpdateAddresses(client, address.ID);
+			Email updatedEmail = updateUtil.UpdateEmail(client, email.ID);
+			NameEvent updatedNameEvent = updateUtil.UpdateNameEvents(client, nameEvent.ID);
+			NameAttribute updatedNameAttribute = updateUtil.UpdateNameAttributes(client, nameAttribute.ID);
+			NameNote updatedNameNote = updateUtil.UpdateNameNotes(client, nameNote.ID);
+			NameTask updatedNameTask = updateUtil.UpdateNameTasks(client, nameTask.ID);
 
 			Console.WriteLine("\nUpdated Name Information:\n");
 			OutputNameInformation(GetNameWithCollections(client, updatedName));
