@@ -71,7 +71,7 @@ namespace JustWareApiIntro
 
 			updateNameEvent.Operation = OperationType.Update;
 			updateNameEvent.ID = nameEvent.ID;
-			updateNameEvent.Title = "My Updated Title";
+			updateNameEvent.Title = "My Updated Event";
 			updateNameEvent.TitleIsChanged = true;
 
 			client.Submit(updateNameEvent);
@@ -105,6 +105,20 @@ namespace JustWareApiIntro
 			client.Submit(updateNameNote);
 
 			return client.GetNameNote(nameNote.ID);
+		}
+
+		public NameTask UpdateNameTasks(JustWareApiClient client, NameTask nameTask)
+		{
+			NameTask updateNameTask = new NameTask();
+
+			updateNameTask.Operation = OperationType.Update;
+			updateNameTask.ID = nameTask.ID;
+			updateNameTask.Title = "My Updated Task";
+			updateNameTask.TitleIsChanged = true;
+
+			client.Submit(updateNameTask);
+
+			return client.GetNameTask(nameTask.ID, null);
 		}
 	}
 }

@@ -25,6 +25,7 @@ namespace JustWareApiIntro
 			NameEvent nameEvent = insertUtil.AddNameEvents(client, name);
 			NameAttribute nameAttribute = insertUtil.AddNameAttributes(client, name);
 			NameNote nameNote = insertUtil.AddNameNotes(client, name);
+			NameTask nameTask = insertUtil.AddNameTask(client, name);
 
 			Console.WriteLine("\nNew Name Information:\n");
 			OutputNameInformation(GetNameWithCollections(client, name));
@@ -38,6 +39,7 @@ namespace JustWareApiIntro
 			NameEvent updatedNameEvent = updateUtil.UpdateNameEvents(client, nameEvent);
 			NameAttribute updatedNameAttribute = updateUtil.UpdateNameAttributes(client, nameAttribute);
 			NameNote updatedNameNote = updateUtil.UpdateNameNotes(client, nameNote);
+			NameTask updatedNameTask = updateUtil.UpdateNameTasks(client, nameTask);
 
 			Console.WriteLine("\nUpdated Name Information:\n");
 			OutputNameInformation(GetNameWithCollections(client, updatedName));
@@ -58,6 +60,7 @@ namespace JustWareApiIntro
 			collections.Add("Events");
 			collections.Add("Attributes");
 			collections.Add("Notes");
+			collections.Add("Tasks");
 
 			Name nameWithCollections = client.GetName(name.ID, collections);
 
@@ -95,6 +98,10 @@ namespace JustWareApiIntro
 			if (name.Notes.Count > 0)
 			{
 				Console.WriteLine("Notes: {0}", name.Notes[0].Notes);
+			}
+			if (name.Tasks.Count > 0)
+			{
+				Console.WriteLine("Tasks: {0} {1}", name.Tasks[0].Title, name.Tasks[0].EventDate);
 			}
 		}
 
