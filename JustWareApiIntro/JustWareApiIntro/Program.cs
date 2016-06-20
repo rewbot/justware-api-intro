@@ -45,7 +45,7 @@ namespace JustWareApiIntro
 			OutputNameInformation(GetNameWithCollections(client, updatedName));
 
 			//NameDelete
-			CleanupEntity(client, name);
+			CleanupName(client, name);
 
 			Console.Write("\nPress Enter to finish...");
 			Console.ReadLine();
@@ -105,11 +105,11 @@ namespace JustWareApiIntro
 			}
 		}
 
-		private static void CleanupEntity(JustWareApiClient client, DataContractBase entity)
+		private static void CleanupName(JustWareApiClient client, Name name)
 		{
 			Console.WriteLine("\nDeleting name...");
-			entity.Operation = OperationType.Delete;
-			client.Submit(entity);
+			name.Operation = OperationType.Delete;
+			client.Submit(name);
 		}
 
 		private static JustWareApiClient GetClient()

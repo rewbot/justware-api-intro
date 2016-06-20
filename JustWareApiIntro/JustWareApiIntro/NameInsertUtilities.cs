@@ -53,9 +53,7 @@ namespace JustWareApiIntro
 			int nameId = keys[0].NewID;
 
 			//Get name from database
-			List<string> includedCollections = new List<string>();
-			includedCollections.Add("Phones");
-			Name dbName = client.GetName(nameId, includedCollections);
+			Name dbName = client.GetName(nameId, null);
 
 			return dbName;
 		}
@@ -197,6 +195,5 @@ namespace JustWareApiIntro
 
 			return newTask;
 		}
-
 	}
 }
