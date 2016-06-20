@@ -12,6 +12,14 @@ namespace JustWareApiIntro
 		static void Main(string[] args)
 		{
 			JustWareApiClient client = GetClient();
+			if (client == null)
+			{
+				Console.WriteLine("JustWareApi Client has not been initialized.");
+				Console.Write("\nPress Enter to finish...");
+				Console.ReadLine();
+
+				return;
+			}
 			//Verify that connection is working
 			int nameId = client.GetCallerNameID();
 			Console.WriteLine("Caller NameID: " + nameId);
