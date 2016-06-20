@@ -19,12 +19,12 @@ namespace JustWareApiIntro
 			//Name Insert
 			NameInsertUtilities insertUtil = new NameInsertUtilities();
 			Name name = insertUtil.InsertName(client);
-			//Phone phone = insertUtil.AddPhones(client, name);
-			//Address address = insertUtil.AddAddresses(client, name);
-			//Email email = insertUtil.AddEmail(client, name);
-			//NameEvent nameEvent = insertUtil.AddNameEvents(client, name);
-			//NameAttribute nameAttribute = insertUtil.AddNameAttributes(client, name);
-			//NameNote nameNote = insertUtil.AddNameNotes(client, name);
+			Phone phone = insertUtil.AddPhones(client, name);
+			Address address = insertUtil.AddAddresses(client, name);
+			Email email = insertUtil.AddEmail(client, name);
+			NameEvent nameEvent = insertUtil.AddNameEvents(client, name);
+			NameAttribute nameAttribute = insertUtil.AddNameAttributes(client, name);
+			NameNote nameNote = insertUtil.AddNameNotes(client, name);
 
 			Console.WriteLine("\nNew Name Information:\n");
 			OutputNameInformation(GetNameWithCollections(client, name));

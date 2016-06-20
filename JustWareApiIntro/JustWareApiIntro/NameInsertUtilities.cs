@@ -60,5 +60,126 @@ namespace JustWareApiIntro
 			return dbName;
 		}
 
+		public Phone AddPhones(JustWareApiClient client, Name name)
+		{
+			Phone phone = new Phone();
+			phone.Operation = OperationType.Insert;
+			phone.TempID = "ID1";
+			phone.TypeCode = "HP";
+			phone.Number = "111-111-1111";
+			phone.NameID = name.ID;
+
+			List<Key> keys = client.Submit(phone);
+			int phoneId = keys[0].NewID;
+			Phone newPhone = client.GetPhone(phoneId);
+
+			return newPhone;
+		}
+
+		public Phone AddPhones2(JustWareApiClient client, Name name)
+		{
+			name.Phones = new List<Phone>();
+
+			Phone phone = new Phone();
+			phone.Operation = OperationType.Insert;
+			phone.TempID = "ID1";
+			phone.TypeCode = "HP";
+			phone.Number = "111-111-1111";
+			name.Phones.Add(phone);
+
+			List<Key> keys = client.Submit(name);
+			Phone newPhone = new Phone();
+			foreach (Key key in keys)
+			{
+				if (key.TypeName == "Phone")
+				{
+					newPhone = client.GetPhone(key.NewID);
+				}
+			}
+
+			return newPhone;
+		}
+
+		public Email AddEmail(JustWareApiClient client, Name name)
+		{
+			Email email = new Email();
+			email.Operation = OperationType.Insert;
+			email.TypeCode = "BUS";
+			email.Address = "someone@somewhere.com";
+			email.NameID = name.ID;
+
+			List<Key> keys = client.Submit(email);
+			int emailId = keys[0].NewID;
+			Email newEmail = client.GetEmail(emailId);
+
+			return newEmail;
+		}
+
+		public Address AddAddresses(JustWareApiClient client, Name name)
+		{
+			Address address = new Address();
+			address.Operation = OperationType.Insert;
+			address.TypeCode = "HA";
+			address.StateCode = "UT";
+			address.City = "Logan";
+			address.Zip = "84321";
+			address.StreetAddress = "843 South 100 West";
+			address.NameID = name.ID;
+
+			List<Key> keys = client.Submit(address);
+			int addressId = keys[0].NewID;
+			Address newAddress = client.GetAddress(addressId);
+
+			return newAddress;
+		}
+
+		public NameAttribute AddNameAttributes(JustWareApiClient client, Name name)
+		{
+			NameAttribute attribute = new NameAttribute();
+			attribute.Operation = OperationType.Insert;
+			attribute.TypeCode = "WARR";
+			attribute.NameID = name.ID;
+
+			List<Key> keys = client.Submit(attribute);
+			int attributeId = keys[0].NewID;
+			NameAttribute newAttribute = client.GetNameAttribute(attributeId);
+
+			return newAttribute;
+		}
+
+		public NameEvent AddNameEvents(JustWareApiClient client, Name name)
+		{
+			NameEvent nameEvent = new NameEvent();
+			nameEvent.Operation = OperationType.Insert;
+			nameEvent.EventDate = DateTime.Now;
+			nameEvent.EventEndDate = DateTime.Now.AddHours(2);
+			nameEvent.TypeCode = "ARR";
+			nameEvent.NameID = name.ID;
+			nameEvent.Title = "My Name Event";
+			name.Events.Add(nameEvent);
+
+			List<Key> keys = client.Submit(nameEvent);
+			int nameEventId = keys[0].NewID;
+			NameEvent newNameEvent = client.GetNameEvent(nameEventId);
+
+			return newNameEvent;
+		}
+
+		public NameNote AddNameNotes(JustWareApiClient client, Name name)
+		{
+			NameNote note = new NameNote();
+			note.Operation = OperationType.Insert;
+			note.DateTaken = DateTime.Now;
+			note.Notes = "Some notes";
+			note.TakenBy = name.ID;
+			note.NameID = name.ID;
+
+			List<Key> keys = client.Submit(note);
+			int noteId = keys[0].NewID;
+			NameNote newNote = client.GetNameNote(noteId);
+
+			return newNote;
+		}
+
 	}
 }
