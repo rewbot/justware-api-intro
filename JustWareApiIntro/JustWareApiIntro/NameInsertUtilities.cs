@@ -12,25 +12,10 @@ namespace JustWareApiIntro
 		public Name InsertName(JustWareApiClient client)
 		{
 			//Look for existing name
-			string query = "Last = \"Thawne\" && First = \"Eobard\" && DriversLicenseNumber=\"[yourLastName]-12\"";
-			List<Name> existingNames = client.FindNames(query, null);
-			if (existingNames.Count > 0)
+			Name existingName = FindExistingName(client);
+			if (existingName != null)
 			{
-				Console.WriteLine("Existing name found.");
-
-				if (existingNames.Count > 1)
-				{
-					Console.WriteLine("Deleting name duplicates...");
-
-					for (int i = 1; i < existingNames.Count; i++)
-					{
-						Name deleteName = existingNames[i];
-						deleteName.Operation = OperationType.Delete;
-						client.Submit(deleteName);
-					}
-				}
-
-				return existingNames[0];
+				return existingName;
 			}
 
 			Console.WriteLine("Creating new name...");
@@ -58,6 +43,31 @@ namespace JustWareApiIntro
 			return dbName;
 		}
 
+		private Name FindExistingName(JustWareApiClient client)
+		{
+			string query = "Last = \"Thawne\" && First = \"Eobard\" && DriversLicenseNumber=\"[yourLastName]-12\"";
+			List<Name> existingNames = client.FindNames(query, null);
+			if (existingNames.Count > 0)
+			{
+				Console.WriteLine("Existing name found.");
+
+				if (existingNames.Count > 1)
+				{
+					Console.WriteLine("Deleting name duplicates...");
+
+					for (int i = 1; i < existingNames.Count; i++)
+					{
+						Name deleteName = existingNames[i];
+						deleteName.Operation = OperationType.Delete;
+						client.Submit(deleteName);
+					}
+				}
+
+				return existingNames[0];
+			}
+
+			return null;
+		}
 		public Phone AddPhones(JustWareApiClient client, Name name)
 		{
 			Phone phone = new Phone();
