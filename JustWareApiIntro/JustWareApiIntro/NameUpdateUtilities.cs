@@ -11,29 +11,41 @@ namespace JustWareApiIntro
 	{
 		public Name UpdateName(JustWareApiClient client, Name name)
 		{
+			//Create Object
 			Name updateName = new Name();
 
-			updateName.ID = name.ID;
+			//Fill out required info
 			updateName.Operation = OperationType.Update;
+			updateName.ID = name.ID;
+
+			//Fill out info to be updated
 			updateName.Weight = 120;
 			updateName.WeightIsChanged = true;
 
+			//Submit
 			client.Submit(updateName);
 
+			//Return updated Name from the database
 			return client.GetName(updateName.ID, null);
 		}
 
 		public Phone UpdatePhones(JustWareApiClient client, Phone phone)
 		{
+			//Create Object
 			Phone updatePhone = new Phone();
 
+			//Fill out required info
 			updatePhone.Operation = OperationType.Update;
 			updatePhone.ID = phone.ID;
+
+			//Fill out info to be updated
 			updatePhone.Number = "222-222-2222";
 			updatePhone.NumberIsChanged = true;
 
+			//Submit
 			client.Submit(updatePhone);
 
+			//Return updated Phone from the database
 			return client.GetPhone(phone.ID);
 		}
 

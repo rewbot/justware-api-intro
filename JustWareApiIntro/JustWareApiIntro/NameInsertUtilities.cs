@@ -68,16 +68,23 @@ namespace JustWareApiIntro
 
 			return null;
 		}
+
 		public Phone AddPhones(JustWareApiClient client, Name name)
 		{
+			//Create Phone object
 			Phone phone = new Phone();
+
+			//Fill out information
 			phone.Operation = OperationType.Insert;
 			phone.TempID = "ID1";
 			phone.TypeCode = "HP";
 			phone.Number = "111-111-1111";
 			phone.NameID = name.ID;
 
+			//Submit
 			List<Key> keys = client.Submit(phone);
+
+			//Get object from database
 			int phoneId = keys[0].NewID;
 			Phone newPhone = client.GetPhone(phoneId);
 
@@ -86,8 +93,10 @@ namespace JustWareApiIntro
 
 		public Phone AddPhones2(JustWareApiClient client, Name name)
 		{
+			//Initialize collection on Name entity
 			name.Phones = new List<Phone>();
 
+			//Create object and fill out inof
 			Phone phone = new Phone();
 			phone.Operation = OperationType.Insert;
 			phone.TempID = "ID1";
@@ -95,17 +104,11 @@ namespace JustWareApiIntro
 			phone.Number = "111-111-1111";
 			name.Phones.Add(phone);
 
+			//Submit the Name
 			List<Key> keys = client.Submit(name);
-			Phone newPhone = new Phone();
-			foreach (Key key in keys)
-			{
-				if (key.TypeName == "Phone")
-				{
-					newPhone = client.GetPhone(key.NewID);
-				}
-			}
+			int phoneId = keys[0].NewID;
 
-			return newPhone;
+			return client.GetPhone(phoneId);
 		}
 
 		public Email AddEmail(JustWareApiClient client, Name name)
