@@ -30,12 +30,12 @@ namespace JustWareApiIntro
 			OutputNameInformation(GetNameWithCollections(client, name));
 
 			//Name Update
-			//NameUpdateUtility updateUtil = new NameUpdateUtility();
-			//Name updatedName = updateUtil.UpdateName(client, name);
-			//Phone updatedPhone = updateUtil.UpdatePhones(client, phone);
+			NameUpdateUtilities updateUtil = new NameUpdateUtilities();
+			Name updatedName = updateUtil.UpdateName(client, name);
+			Phone updatedPhone = updateUtil.UpdatePhones(client, phone);
 
-			//Console.WriteLine("\nUpdated Name Information:\n");
-			//OutputNameInformation(GetNameWithCollections(client, updatedName));
+			Console.WriteLine("\nUpdated Name Information:\n");
+			OutputNameInformation(GetNameWithCollections(client, updatedName));
 
 			//NameDelete
 			CleanupEntity(client, name);

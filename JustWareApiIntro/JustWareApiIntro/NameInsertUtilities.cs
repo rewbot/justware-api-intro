@@ -7,7 +7,7 @@ using JustWareApiIntro.JustWareApi;
 
 namespace JustWareApiIntro
 {
-	class NameInsertUtilities
+	public class NameInsertUtilities
 	{
 		public Name InsertName(JustWareApiClient client)
 		{
