@@ -33,6 +33,11 @@ namespace JustWareApiIntro
 			NameUpdateUtilities updateUtil = new NameUpdateUtilities();
 			Name updatedName = updateUtil.UpdateName(client, name);
 			Phone updatedPhone = updateUtil.UpdatePhones(client, phone);
+			Address updatedAddress = updateUtil.UpdateAddresses(client, address);
+			Email updatedEmail = updateUtil.UpdateEmail(client, email);
+			NameEvent updatedNameEvent = updateUtil.UpdateNameEvents(client, nameEvent);
+			NameAttribute updatedNameAttribute = updateUtil.UpdateNameAttributes(client, nameAttribute);
+			NameNote updatedNameNote = updateUtil.UpdateNameNotes(client, nameNote);
 
 			Console.WriteLine("\nUpdated Name Information:\n");
 			OutputNameInformation(GetNameWithCollections(client, updatedName));
@@ -73,7 +78,7 @@ namespace JustWareApiIntro
 			}
 			if (name.Addresses.Count > 0)
 			{
-				Console.WriteLine("Addresses: {0}", name.Addresses[0].StreetAddress);
+				Console.WriteLine("Addresses: {0}, {1}, {2} {3}", name.Addresses[0].StreetAddress, name.Addresses[0].City, name.Addresses[0].StateCode, name.Addresses[0].Zip);
 			}
 			if (name.Emails.Count > 0)
 			{

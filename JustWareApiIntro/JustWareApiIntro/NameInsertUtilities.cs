@@ -122,7 +122,7 @@ namespace JustWareApiIntro
 			address.TypeCode = "HA";
 			address.StateCode = "UT";
 			address.City = "Logan";
-			address.Zip = "84321";
+			address.Zip = "84405";
 			address.StreetAddress = "843 South 100 West";
 			address.NameID = name.ID;
 
