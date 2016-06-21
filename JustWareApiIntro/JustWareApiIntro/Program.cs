@@ -22,6 +22,8 @@ namespace JustWareApiIntro
 			}
 
 			//Verify that connection is working
+			int nameId = client.GetCallerNameID();
+			Console.WriteLine("Caller NameID: " + nameId);
 
 			//Name insert and update
 			var name = PopulateNameInformation(client);
@@ -97,7 +99,18 @@ namespace JustWareApiIntro
 
 		private static Name GetNameWithCollections(JustWareApiClient client, int nameId)
 		{
-			return client.GetName(nameId, null);
+			List<string> collections = new List<string>();
+			collections.Add("Phones");
+			collections.Add("Addresses");
+			collections.Add("Emails");
+			collections.Add("Events");
+			collections.Add("Attributes");
+			collections.Add("Notes");
+			collections.Add("Tasks");
+
+			Name nameWithCollections = client.GetName(nameId, collections);
+
+			return nameWithCollections;
 		}
 
 		private static void OutputNameInformation(Name name)
@@ -152,7 +165,11 @@ namespace JustWareApiIntro
 
 		private static JustWareApiClient GetClient()
 		{
-			return null;
+			JustWareApiClient client = new JustWareApiClient();
+			client.ClientCredentials.UserName.UserName = @"tc\User";
+			client.ClientCredentials.UserName.Password = "JustWare5";
+
+			return client;
 		}
 	}
 }
