@@ -109,28 +109,6 @@ namespace JustWareApiIntro
 			return client.GetPhone(phoneId);
 		}
 
-		public Email AddEmail(JustWareApiClient client, int nameId)
-		{
-			//Create Email object
-			Email email = new Email();
-
-			//Fill out info - Operation, TypeCode = "BUS", Address, NameID
-			email.Operation = OperationType.Insert;
-			email.TypeCode = "BUS";
-			email.Address = "someone@somewhere.com";
-			email.NameID = nameId;
-
-			//Submit Email and set keys
-			List<Key> keys = client.Submit(email);
-
-			//Use keys to get new Email object from database
-			int emailId = keys[0].NewID;
-			Email newEmail = client.GetEmail(emailId);
-
-			//Return new Email
-			return newEmail;
-		}
-
 		public Address AddAddresses(JustWareApiClient client, int nameId)
 		{
 			//Create Address object
@@ -156,25 +134,26 @@ namespace JustWareApiIntro
 			return newAddress;
 		}
 
-		public NameAttribute AddNameAttributes(JustWareApiClient client, int nameId)
+		public Email AddEmail(JustWareApiClient client, int nameId)
 		{
-			//Create NameAttribute object
-			NameAttribute attribute = new NameAttribute();
+			//Create Email object
+			Email email = new Email();
 
-			//Fill out info - Operation, TypeCode = "WARR", NameID
-			attribute.Operation = OperationType.Insert;
-			attribute.TypeCode = "WARR";
-			attribute.NameID = nameId;
+			//Fill out info - Operation, TypeCode = "BUS", Address, NameID
+			email.Operation = OperationType.Insert;
+			email.TypeCode = "BUS";
+			email.Address = "someone@somewhere.com";
+			email.NameID = nameId;
 
-			//Submit NameAttribute and set keys
-			List<Key> keys = client.Submit(attribute);
+			//Submit Email and set keys
+			List<Key> keys = client.Submit(email);
 
-			//Use keys to get new NameAttribute object from database
-			int attributeId = keys[0].NewID;
-			NameAttribute newAttribute = client.GetNameAttribute(attributeId);
+			//Use keys to get new Email object from database
+			int emailId = keys[0].NewID;
+			Email newEmail = client.GetEmail(emailId);
 
-			//Return new NameAttribute
-			return newAttribute;
+			//Return new Email
+			return newEmail;
 		}
 
 		public NameEvent AddNameEvents(JustWareApiClient client, int nameId)
@@ -199,6 +178,27 @@ namespace JustWareApiIntro
 
 			//Return new NameEvent
 			return newNameEvent;
+		}
+
+		public NameAttribute AddNameAttributes(JustWareApiClient client, int nameId)
+		{
+			//Create NameAttribute object
+			NameAttribute attribute = new NameAttribute();
+
+			//Fill out info - Operation, TypeCode = "WARR", NameID
+			attribute.Operation = OperationType.Insert;
+			attribute.TypeCode = "WARR";
+			attribute.NameID = nameId;
+
+			//Submit NameAttribute and set keys
+			List<Key> keys = client.Submit(attribute);
+
+			//Use keys to get new NameAttribute object from database
+			int attributeId = keys[0].NewID;
+			NameAttribute newAttribute = client.GetNameAttribute(attributeId);
+
+			//Return new NameAttribute
+			return newAttribute;
 		}
 
 		public NameNote AddNameNotes(JustWareApiClient client, int nameId)
