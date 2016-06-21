@@ -41,6 +41,12 @@ namespace JustWareApiIntro
 			NameInsertUtilities insertUtil = new NameInsertUtilities();
 			Name name = insertUtil.InsertName(client);
 
+			if (name == null)
+			{
+				Console.WriteLine("Name was not inserted.");
+				return null;
+			}
+
 			int nameId = name.ID;
 			Phone phone = insertUtil.AddPhones(client, nameId);
 			Address address = insertUtil.AddAddresses(client, nameId);
@@ -147,6 +153,11 @@ namespace JustWareApiIntro
 
 		private static void CleanupName(JustWareApiClient client, Name name)
 		{
+			if (name == null)
+			{
+				return;
+			}
+
 			Console.WriteLine("\nDeleting name...");
 			name.Operation = OperationType.Delete;
 			client.Submit(name);
