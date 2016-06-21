@@ -55,7 +55,7 @@ namespace JustWareApiIntro
 
 			//Name Update
 			NameUpdateUtilities updateUtil = new NameUpdateUtilities();
-			Name updatedName = updateUtil.UpdateName(client, nameId);
+			updateUtil.UpdateName(client, nameId);
 			if (phone != null)
 			{
 				updateUtil.UpdatePhones(client, phone.ID);
@@ -86,7 +86,7 @@ namespace JustWareApiIntro
 			}
 
 			Console.WriteLine("\nUpdated Name Information:\n----------------------------------------");
-			OutputNameInformation(GetNameWithCollections(client, updatedName));
+			OutputNameInformation(GetNameWithCollections(client, name));
 
 			return name;
 		}
