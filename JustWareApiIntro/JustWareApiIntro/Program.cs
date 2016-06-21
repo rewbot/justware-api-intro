@@ -22,8 +22,6 @@ namespace JustWareApiIntro
 			}
 
 			//Verify that connection is working
-			int nameId = client.GetCallerNameID();
-			Console.WriteLine("Caller NameID: " + nameId);
 
 			//Name insert and update
 			var name = PopulateNameInformation(client);
@@ -154,12 +152,7 @@ namespace JustWareApiIntro
 
 		private static JustWareApiClient GetClient()
 		{
-			JustWareApiClient client = new JustWareApiClient();
-			client.ClientCredentials.UserName.UserName = @"tc\User";
-			client.ClientCredentials.UserName.Password = "JustWare5";
-
-			return client;
-
+			return null;
 		}
 	}
 }
