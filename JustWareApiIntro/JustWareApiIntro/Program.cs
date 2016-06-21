@@ -20,10 +20,23 @@ namespace JustWareApiIntro
 
 				return;
 			}
+
 			//Verify that connection is working
 			int callerNameId = client.GetCallerNameID();
 			Console.WriteLine("Caller NameID: " + callerNameId);
 
+			//Name insert and update
+			var name = PopulateNameInformation(client);
+
+			//NameDelete
+			CleanupName(client, name);
+
+			Console.Write("\nPress Enter to finish...");
+			Console.ReadLine();
+		}
+
+		private static Name PopulateNameInformation(JustWareApiClient client)
+		{
 			//Name Insert
 			NameInsertUtilities insertUtil = new NameInsertUtilities();
 			Name name = insertUtil.InsertName(client);
@@ -37,28 +50,45 @@ namespace JustWareApiIntro
 			NameNote nameNote = insertUtil.AddNameNotes(client, nameId);
 			NameTask nameTask = insertUtil.AddNameTask(client, nameId);
 
-			Console.WriteLine("\nNew Name Information:\n");
+			Console.WriteLine("\nNew Name Information:\n----------------------------------------");
 			OutputNameInformation(GetNameWithCollections(client, name));
 
 			//Name Update
 			NameUpdateUtilities updateUtil = new NameUpdateUtilities();
 			Name updatedName = updateUtil.UpdateName(client, nameId);
-			Phone updatedPhone = updateUtil.UpdatePhones(client, phone.ID);
-			Address updatedAddress = updateUtil.UpdateAddresses(client, address.ID);
-			Email updatedEmail = updateUtil.UpdateEmail(client, email.ID);
-			NameEvent updatedNameEvent = updateUtil.UpdateNameEvents(client, nameEvent.ID);
-			NameAttribute updatedNameAttribute = updateUtil.UpdateNameAttributes(client, nameAttribute.ID);
-			NameNote updatedNameNote = updateUtil.UpdateNameNotes(client, nameNote.ID);
-			NameTask updatedNameTask = updateUtil.UpdateNameTasks(client, nameTask.ID);
+			if (phone != null)
+			{
+				updateUtil.UpdatePhones(client, phone.ID);
+			}
+			if (address != null)
+			{
+				updateUtil.UpdateAddresses(client, address.ID);
+			}
+			if (email != null)
+			{
+				updateUtil.UpdateEmail(client, email.ID);
+			}
+			if (nameEvent != null)
+			{
+				updateUtil.UpdateNameEvents(client, nameEvent.ID);
+			}
+			if (nameAttribute != null)
+			{
+				updateUtil.UpdateNameAttributes(client, nameAttribute.ID);
+			}
+			if (nameNote != null)
+			{
+				updateUtil.UpdateNameNotes(client, nameNote.ID);
+			}
+			if (nameTask != null)
+			{
+				updateUtil.UpdateNameTasks(client, nameTask.ID);
+			}
 
-			Console.WriteLine("\nUpdated Name Information:\n");
+			Console.WriteLine("\nUpdated Name Information:\n----------------------------------------");
 			OutputNameInformation(GetNameWithCollections(client, updatedName));
 
-			//NameDelete
-			CleanupName(client, name);
-
-			Console.Write("\nPress Enter to finish...");
-			Console.ReadLine();
+			return name;
 		}
 
 		private static Name GetNameWithCollections(JustWareApiClient client, Name name)
