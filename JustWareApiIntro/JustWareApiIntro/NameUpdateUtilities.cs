@@ -9,7 +9,7 @@ namespace JustWareApiIntro
 {
 	public class NameUpdateUtilities
 	{
-		public Name UpdateName(JustWareApiClient client, int nameId)
+		public void UpdateName(JustWareApiClient client, int nameId)
 		{
 			//Create Object
 			Name updateName = new Name();
@@ -24,9 +24,6 @@ namespace JustWareApiIntro
 
 			//Submit
 			client.Submit(updateName);
-
-			//Return updated Name from the database
-			return client.GetName(nameId, null);
 		}
 
 		public void UpdatePhones(JustWareApiClient client, int phoneId)
