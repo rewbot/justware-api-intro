@@ -29,12 +29,18 @@ namespace JustWareApiIntro
 		public void UpdatePhones(JustWareApiClient client, int phoneId)
 		{
 			//Create Object
+			Phone updatePhone = new Phone();
 
 			//Fill out required info
+			updatePhone.Operation = OperationType.Update;
+			updatePhone.ID = phoneId;
 
 			//Fill out info to be updated
+			updatePhone.Number = "222-222-2222";
+			updatePhone.NumberIsChanged = true;
 
 			//Submit
+			client.Submit(updatePhone);
 		}
 
 		public void UpdateAddresses(JustWareApiClient client, int addressId)
