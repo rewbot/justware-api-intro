@@ -57,16 +57,23 @@ namespace JustWareApiIntro
 
 		public Phone AddPhones(JustWareApiClient client, int nameId)
 		{
-			//Create Phone object
+			//Create phone object
+			Phone phone = new Phone();
 
 			//Fill out information
+			phone.Operation = OperationType.Insert;
+			phone.TypeCode = "HP";
+			phone.Number = "111-111-1111";
+			phone.NameID = nameId;
 
-			//Submit Phone object and set keys
+			//Submit
+			List<Key> keys = client.Submit(phone);
 
-			//Use keys to get new Phone object from database
+			//Get object from database
+			int phoneId = keys[0].NewID;
+			Phone newPhone = client.GetPhone(phoneId);
 
-			//Return new Phone
-			return null;
+			return newPhone;
 		}
 
 		public Phone AddPhones2(JustWareApiClient client, Name name)

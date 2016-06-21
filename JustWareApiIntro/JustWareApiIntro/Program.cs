@@ -99,7 +99,18 @@ namespace JustWareApiIntro
 
 		private static Name GetNameWithCollections(JustWareApiClient client, int nameId)
 		{
-			return client.GetName(nameId, null);
+			List<string> collections = new List<string>();
+			collections.Add("Phones");
+			collections.Add("Addresses");
+			collections.Add("Emails");
+			collections.Add("Events");
+			collections.Add("Attributes");
+			collections.Add("Notes");
+			collections.Add("Tasks");
+
+			Name nameWithCollections = client.GetName(nameId, collections);
+
+			return nameWithCollections;
 		}
 
 		private static void OutputNameInformation(Name name)
