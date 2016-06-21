@@ -12,12 +12,18 @@ namespace JustWareApiIntro
 		public void UpdateName(JustWareApiClient client, int nameId)
 		{
 			//Create Object
+			Name updateName = new Name();
 
 			//Fill out required info
+			updateName.Operation = OperationType.Update;
+			updateName.ID = nameId;
 
 			//Fill out info to be updated
+			updateName.Weight = 120;
+			updateName.WeightIsChanged = true;
 
 			//Submit
+			client.Submit(updateName);
 		}
 
 		public void UpdatePhones(JustWareApiClient client, int phoneId)
