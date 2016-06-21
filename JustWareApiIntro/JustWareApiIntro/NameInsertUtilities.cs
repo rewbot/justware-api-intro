@@ -11,19 +11,31 @@ namespace JustWareApiIntro
 	{
 		public Name InsertName(JustWareApiClient client)
 		{
+			FindAndDeleteExistingNames(client);
+
 			Console.WriteLine("Creating new name...");
 
 			//Create Object
+			Name name = new Name();
 
 			//Fill out required info
+			name.Operation = OperationType.Insert;
+			name.Last = "Thawne";
 
 			//Fill out additional info
+			name.First = "Eobard";
+			name.DateOfBirth = new DateTime(1942, 7, 13);
+			name.Weight = 150;
+			name.DriversLicenseNumber = "[yourLastName]-12";
 
-			//Submit Name object and set keys
+			//Submit
+			List<Key> keys = client.Submit(name);
+			int nameId = keys[0].NewID;
 
-			//Use keys to get new Name object from database
+			//Get name from database
+			Name dbName = client.GetName(nameId, null);
 
-			return null;
+			return dbName;
 		}
 
 		private void FindAndDeleteExistingNames(JustWareApiClient client)
