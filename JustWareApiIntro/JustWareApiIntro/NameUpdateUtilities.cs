@@ -29,7 +29,7 @@ namespace JustWareApiIntro
 			return client.GetName(nameId, null);
 		}
 
-		public Phone UpdatePhones(JustWareApiClient client, int phoneId)
+		public void UpdatePhones(JustWareApiClient client, int phoneId)
 		{
 			//Create Object
 			Phone updatePhone = new Phone();
@@ -44,12 +44,9 @@ namespace JustWareApiIntro
 
 			//Submit
 			client.Submit(updatePhone);
-
-			//Return updated Phone from the database
-			return client.GetPhone(phoneId);
 		}
 
-		public Address UpdateAddresses(JustWareApiClient client, int addressId)
+		public void UpdateAddresses(JustWareApiClient client, int addressId)
 		{
 			//Create Address object
 			Address updateAddress = new Address();
@@ -62,12 +59,9 @@ namespace JustWareApiIntro
 
 			//Submit Address
 			client.Submit(updateAddress);
-
-			//Get and return Address
-			return client.GetAddress(addressId);
 		}
 
-		public Email UpdateEmail(JustWareApiClient client, int emaiId)
+		public void UpdateEmail(JustWareApiClient client, int emaiId)
 		{
 			//Create Email object
 			Email updateEmail = new Email();
@@ -80,12 +74,9 @@ namespace JustWareApiIntro
 
 			//Submit Email
 			client.Submit(updateEmail);
-
-			//Get and return Email
-			return client.GetEmail(emaiId);
 		}
 
-		public NameEvent UpdateNameEvents(JustWareApiClient client, int nameEventId)
+		public void UpdateNameEvents(JustWareApiClient client, int nameEventId)
 		{
 			//Create NameEvent
 			NameEvent updateNameEvent = new NameEvent();
@@ -98,12 +89,9 @@ namespace JustWareApiIntro
 
 			//Submit NameEvent
 			client.Submit(updateNameEvent);
-
-			//Get and return NameEvent
-			return client.GetNameEvent(nameEventId);
 		}
 
-		public NameAttribute UpdateNameAttributes(JustWareApiClient client, int nameAttributeId)
+		public void UpdateNameAttributes(JustWareApiClient client, int nameAttributeId)
 		{
 			//Create NameAttribute object
 			NameAttribute updateNameAttribute = new NameAttribute();
@@ -116,12 +104,9 @@ namespace JustWareApiIntro
 
 			//Submit NameAttribute object
 			client.Submit(updateNameAttribute);
-
-			//Get and return NameAttribute
-			return client.GetNameAttribute(nameAttributeId);
 		}
 
-		public NameNote UpdateNameNotes(JustWareApiClient client, int nameNoteId)
+		public void UpdateNameNotes(JustWareApiClient client, int nameNoteId)
 		{
 			//Create NameNote object
 			NameNote updateNameNote = new NameNote();
@@ -134,12 +119,9 @@ namespace JustWareApiIntro
 
 			//Submit NameNote
 			client.Submit(updateNameNote);
-
-			//Get and return NameNote
-			return client.GetNameNote(nameNoteId);
 		}
 
-		public NameTask UpdateNameTasks(JustWareApiClient client, int nameTaskId)
+		public void UpdateNameTasks(JustWareApiClient client, int nameTaskId)
 		{
 			//Create NameTask object
 			NameTask updateNameTask = new NameTask();
@@ -152,9 +134,6 @@ namespace JustWareApiIntro
 
 			//Submit NameTask
 			client.Submit(updateNameTask);
-
-			//Get and return NameTask
-			return client.GetNameTask(nameTaskId, null);
 		}
 	}
 }
