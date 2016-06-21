@@ -55,7 +55,7 @@ namespace JustWareApiIntro
 			NameTask nameTask = insertUtil.AddNameTask(client, nameId);
 
 			Console.WriteLine("\nNew Name Information:\n----------------------------------------");
-			OutputNameInformation(GetNameWithCollections(client, name));
+			OutputNameInformation(GetNameWithCollections(client, nameId));
 
 			//Name Update
 			NameUpdateUtilities updateUtil = new NameUpdateUtilities();
@@ -90,14 +90,14 @@ namespace JustWareApiIntro
 			}
 
 			Console.WriteLine("\nUpdated Name Information:\n----------------------------------------");
-			OutputNameInformation(GetNameWithCollections(client, name));
+			OutputNameInformation(GetNameWithCollections(client, nameId));
 
 			return name;
 		}
 
-		private static Name GetNameWithCollections(JustWareApiClient client, Name name)
+		private static Name GetNameWithCollections(JustWareApiClient client, int nameId)
 		{
-			return null;
+			return client.GetName(nameId, null);
 		}
 
 		private static void OutputNameInformation(Name name)
