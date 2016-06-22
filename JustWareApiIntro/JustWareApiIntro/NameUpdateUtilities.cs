@@ -76,10 +76,16 @@ namespace JustWareApiIntro
 		public void UpdateNameEvents(JustWareApiClient client, int nameEventId)
 		{
 			//Create NameEvent
+			NameEvent updateNameEvent = new NameEvent();
 
 			//Fill out info - Operation, ID, Title, TitleIsChanged
+			updateNameEvent.Operation = OperationType.Update;
+			updateNameEvent.ID = nameEventId;
+			updateNameEvent.Title = "My Updated Event";
+			updateNameEvent.TitleIsChanged = true;
 
 			//Submit NameEvent
+			client.Submit(updateNameEvent);
 		}
 
 		public void UpdateNameAttributes(JustWareApiClient client, int nameAttributeId)

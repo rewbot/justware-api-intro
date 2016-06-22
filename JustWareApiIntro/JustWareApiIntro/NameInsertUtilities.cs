@@ -145,15 +145,25 @@ namespace JustWareApiIntro
 		public NameEvent AddNameEvents(JustWareApiClient client, int nameId)
 		{
 			//Create NameEvent object
+			NameEvent nameEvent = new NameEvent();
 
 			//Fill out info - Operation, EventDate = DateTime.Now, EventEndDate = DateTime.Now.AddHours(2), TypeCode = "ARR", NameID
+			nameEvent.Operation = OperationType.Insert;
+			nameEvent.EventDate = DateTime.Now;
+			nameEvent.EventEndDate = DateTime.Now.AddHours(2);
+			nameEvent.TypeCode = "ARR";
+			nameEvent.NameID = nameId;
+			nameEvent.Title = "My Name Event";
 
 			//Submit NameEvent and set keys
+			List<Key> keys = client.Submit(nameEvent);
 
 			//Use keys to get new NameEvent object from database
+			int nameEventId = keys[0].NewID;
+			NameEvent newNameEvent = client.GetNameEvent(nameEventId);
 
 			//Return new NameEvent
-			return null;
+			return newNameEvent;
 		}
 
 		public NameAttribute AddNameAttributes(JustWareApiClient client, int nameId)
