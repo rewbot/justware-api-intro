@@ -98,15 +98,26 @@ namespace JustWareApiIntro
 		public Address AddAddresses(JustWareApiClient client, int nameId)
 		{
 			//Create Address object
+			Address address = new Address();
 
 			//Fill out info - Operation, TypeCode = "HA", StateCode = "UT", City, Zip, StreetAddress, NameID
+			address.Operation = OperationType.Insert;
+			address.TypeCode = "HA";
+			address.StateCode = "UT";
+			address.City = "Logan";
+			address.Zip = "84405";
+			address.StreetAddress = "843 South 100 West";
+			address.NameID = nameId;
 
 			//Submit Email and set keys
+			List<Key> keys = client.Submit(address);
 
 			//Use keys to get new Address object from database
+			int addressId = keys[0].NewID;
+			Address newAddress = client.GetAddress(addressId);
 
 			//Return new Address
-			return null;
+			return newAddress;
 		}
 
 		public Email AddEmail(JustWareApiClient client, int nameId)

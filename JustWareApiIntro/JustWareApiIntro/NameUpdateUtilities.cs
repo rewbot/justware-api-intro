@@ -46,10 +46,16 @@ namespace JustWareApiIntro
 		public void UpdateAddresses(JustWareApiClient client, int addressId)
 		{
 			//Create Address object
+			Address updateAddress = new Address();
 
 			//Fill out info - Operation, ID, Zip, ZipIsChanged
+			updateAddress.Operation = OperationType.Update;
+			updateAddress.ID = addressId;
+			updateAddress.Zip = "84321";
+			updateAddress.ZipIsChanged = true;
 
 			//Submit Address
+			client.Submit(updateAddress);
 		}
 
 		public void UpdateEmail(JustWareApiClient client, int emaiId)
