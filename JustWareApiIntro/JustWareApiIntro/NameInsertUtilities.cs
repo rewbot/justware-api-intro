@@ -190,15 +190,24 @@ namespace JustWareApiIntro
 		public NameNote AddNameNotes(JustWareApiClient client, int nameId)
 		{
 			//Create NameNote object
+			NameNote note = new NameNote();
 
 			//Fill out info - Operation, DateTaken = DateTime.Now, Notes, TakenBy = client.GetCallerNameID(), NameId
+			note.Operation = OperationType.Insert;
+			note.DateTaken = DateTime.Now;
+			note.Notes = "Some notes";
+			note.TakenBy = nameId;
+			note.NameID = nameId;
 
 			//Submit NameNote and set keys
+			List<Key> keys = client.Submit(note);
 
 			//Use keys to get new NameNote object from database
+			int noteId = keys[0].NewID;
+			NameNote newNote = client.GetNameNote(noteId);
 
 			//Return new NameNote
-			return null;
+			return newNote;
 		}
 
 		public NameTask AddNameTask(JustWareApiClient client, int nameId)

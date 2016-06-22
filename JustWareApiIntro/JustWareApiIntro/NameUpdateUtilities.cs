@@ -106,10 +106,16 @@ namespace JustWareApiIntro
 		public void UpdateNameNotes(JustWareApiClient client, int nameNoteId)
 		{
 			//Create NameNote object
+			NameNote updateNameNote = new NameNote();
 
 			//Fill out info - Operation, ID, Notes, NotesIsChanged
+			updateNameNote.Operation = OperationType.Update;
+			updateNameNote.ID = nameNoteId;
+			updateNameNote.Notes = "My updated notes";
+			updateNameNote.NotesIsChanged = true;
 
 			//Submit NameNote
+			client.Submit(updateNameNote);
 		}
 
 		public void UpdateNameTasks(JustWareApiClient client, int nameTaskId)
