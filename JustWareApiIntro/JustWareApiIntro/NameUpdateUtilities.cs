@@ -121,10 +121,16 @@ namespace JustWareApiIntro
 		public void UpdateNameTasks(JustWareApiClient client, int nameTaskId)
 		{
 			//Create NameTask object
+			NameTask updateNameTask = new NameTask();
 
 			//Fill out info - Operation, ID, Title, TitleIsChanged
+			updateNameTask.Operation = OperationType.Update;
+			updateNameTask.ID = nameTaskId;
+			updateNameTask.Title = "My Updated Task";
+			updateNameTask.TitleIsChanged = true;
 
 			//Submit NameTask
+			client.Submit(updateNameTask);
 		}
 	}
 }

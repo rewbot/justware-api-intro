@@ -213,15 +213,25 @@ namespace JustWareApiIntro
 		public NameTask AddNameTask(JustWareApiClient client, int nameId)
 		{
 			//Create NameTask object
+			NameTask task = new NameTask();
 
 			//Fill out info - Operation, EventDate = DateTime.Now, EventEndDate = DateTime.Now.AddHours(1), TypeCode = "TASK", Title, NameID
+			task.Operation = OperationType.Insert;
+			task.EventDate = DateTime.Now;
+			task.EventEndDate = DateTime.Now.AddHours(1);
+			task.TypeCode = "TASK";
+			task.Title = "My Name Task";
+			task.NameID = nameId;
 
 			//Submit NameTask and set keys
+			List<Key> keys = client.Submit(task);
 
 			//Use keys to get new NameTask object from database
+			int taskId = keys[0].NewID;
+			NameTask newTask = client.GetNameTask(taskId, null);
 
 			//Return new NameTask
-			return null;
+			return newTask;
 		}
 	}
 }
