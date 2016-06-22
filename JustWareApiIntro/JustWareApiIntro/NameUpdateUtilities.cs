@@ -61,10 +61,16 @@ namespace JustWareApiIntro
 		public void UpdateEmail(JustWareApiClient client, int emaiId)
 		{
 			//Create Email object
+			Email updateEmail = new Email();
 
 			//Fill out info - Operation, ID, Address, AddressIsChanged
+			updateEmail.Operation = OperationType.Update;
+			updateEmail.ID = emaiId;
+			updateEmail.Address = "myEmail@somewhere.com";
+			updateEmail.AddressIsChanged = true;
 
 			//Submit Email
+			client.Submit(updateEmail);
 		}
 
 		public void UpdateNameEvents(JustWareApiClient client, int nameEventId)

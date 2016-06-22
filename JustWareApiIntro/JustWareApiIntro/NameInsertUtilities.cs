@@ -123,15 +123,23 @@ namespace JustWareApiIntro
 		public Email AddEmail(JustWareApiClient client, int nameId)
 		{
 			//Create Email object
+			Email email = new Email();
 
 			//Fill out info - Operation, TypeCode = "BUS", Address, NameID
+			email.Operation = OperationType.Insert;
+			email.TypeCode = "BUS";
+			email.Address = "someone@somewhere.com";
+			email.NameID = nameId;
 
 			//Submit Email and set keys
+			List<Key> keys = client.Submit(email);
 
 			//Use keys to get new Email object from database
+			int emailId = keys[0].NewID;
+			Email newEmail = client.GetEmail(emailId);
 
 			//Return new Email
-			return null;
+			return newEmail;
 		}
 
 		public NameEvent AddNameEvents(JustWareApiClient client, int nameId)
