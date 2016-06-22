@@ -91,10 +91,16 @@ namespace JustWareApiIntro
 		public void UpdateNameAttributes(JustWareApiClient client, int nameAttributeId)
 		{
 			//Create NameAttribute object
+			NameAttribute updateNameAttribute = new NameAttribute();
 
 			//Fill out info - Operation, ID, TypeCode = "INC", TypeCodeIsChanged
+			updateNameAttribute.Operation = OperationType.Update;
+			updateNameAttribute.ID = nameAttributeId;
+			updateNameAttribute.TypeCode = "INC";
+			updateNameAttribute.TypeCodeIsChanged = true;
 
 			//Submit NameAttribute object
+			client.Submit(updateNameAttribute);
 		}
 
 		public void UpdateNameNotes(JustWareApiClient client, int nameNoteId)

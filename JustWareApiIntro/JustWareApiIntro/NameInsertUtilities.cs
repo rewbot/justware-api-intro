@@ -169,15 +169,22 @@ namespace JustWareApiIntro
 		public NameAttribute AddNameAttributes(JustWareApiClient client, int nameId)
 		{
 			//Create NameAttribute object
+			NameAttribute attribute = new NameAttribute();
 
 			//Fill out info - Operation, TypeCode = "WARR", NameID
+			attribute.Operation = OperationType.Insert;
+			attribute.TypeCode = "WARR";
+			attribute.NameID = nameId;
 
 			//Submit NameAttribute and set keys
+			List<Key> keys = client.Submit(attribute);
 
 			//Use keys to get new NameAttribute object from database
+			int attributeId = keys[0].NewID;
+			NameAttribute newAttribute = client.GetNameAttribute(attributeId);
 
 			//Return new NameAttribute
-			return null;
+			return newAttribute;
 		}
 
 		public NameNote AddNameNotes(JustWareApiClient client, int nameId)
