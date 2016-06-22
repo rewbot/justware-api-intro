@@ -1,7 +1,7 @@
 # Introduction to JustWare API Coding
 Welcome to a beginning introduction to using the JustWare API
 
-This project is a console application written is C# that demonstrates the basic concepts of the JustWare API. The API is based on entities. There are 121 different types of entities. You can interact with entities by using a Submit, GetEntity, or FindEntity. A list of entities and required fields can be found in the Entities section of the [API Documentation](http://www.documentation.newdawn.com/api/). The training covers the following:
+This project is a console application written in C# that demonstrates the basic concepts of the JustWare API. The API is based on entities. There are 121 different types of entities. You can interact with entities by using a Submit, GetEntity, or FindEntity. A list of entities and required fields can be found in the Entities section of the [API Documentation](http://www.documentation.newdawn.com/api/). The training covers the following:
 
 - Inserts (entity and entity collections)
 - Updates (entity and entity collections)
@@ -13,7 +13,7 @@ The API service reference has been configured for you already. If you want use y
 #### 1. Initialize the Client
 > Run `git checkout initialize-client` to complete this step
 
-To start you will need to initialize the JustWare API client. Go to `Program.cs` and find the method `GetClient()`. Add the following lines to that methd:
+To start you will need to initialize the JustWare API client. Go to `Program.cs` and find the method `GetClient()`. Add the following lines to that method:
 
 ```csharp
 JustWareApiClient client = new JustWareApiClient();
@@ -41,7 +41,7 @@ We will be following a basic pattern for inserting data
 4. Submit the entity
 5. Get the submitted item from the database
 
-Open `NameInsertUtilities.cs` and add the following lines to `InsertName()` and in the drivers license number replace `[yourLastName]` with your last name.:
+Open `NameInsertUtilities.cs` and add the following lines to `InsertName()` and in the drivers license number replace `[yourLastName]` with your last name:
 
 ```csharp
 //Create Object
@@ -67,12 +67,14 @@ Name dbName = client.GetName(nameId, null);
 return dbName;
 ```
 
+Anytime we deal with entities we need to set the operation type. In our case we are going to insert. When we perform a submit, the function will return a list of keys, giving us the JustWare IDs of the object we just submitted. In this case, we’ve only submitted a single object, so we will get a single item back in the list. We can then use that NameID to get the new name from the database as demonstrated with `client.GetName(nameId, null)`. 
+
 Run the program and you should see the name information we added printed out in the console. In a real environment you'd want to check for existing names before you insert a new name. Add a call to `FindAndDeleteExistingNames(client)` at the beginning of the `InsertName()` method. This method uses the API to query the database for names. If you look at the method you'll see the query structured like this: `"Last = \"Thawne\" && First = \"Eobard\" && DriversLicenseNumber=\"[yourLastName]-12\""`. Again, replace `[yourLastName]` with your last name so that the query will find the name you inserted. You'll notice that this method deletes Name entities. To do so, you simply need the ID of the entity to delete and then set the entity `Operation` to `OperationType.Delete`. 
 
 ####3. Update a Name
 > Run `git checkout update-name` to complete this step
 
-This will follow a similar pattern to inserting with two exceptions. We will need an existing NameID and any properties that we want to change need the `IsChanged` property set to true. Open `NameUpdateUtilities.cs` and find the `UpdateNames()` method. Add the following lines to that method:
+This will follow a similar pattern to inserting with two exceptions. First, we will need an existing NameID and second, any properties that we want to update need the `IsChanged` property set to true. Open `NameUpdateUtilities.cs` and find the `UpdateNames()` method. Add the following lines to that method:
 
 ```csharp
 //Create Object
@@ -95,7 +97,7 @@ Run the program and you'll now notice that in the Updated Name Information secti
 ####4. Add Phone collection to a Name
 > Run `git checkout add-phone-collection` to complete this step
 
-We can add data collections to names for this example we will be associating a Phone number with our name. This will follow almost the exact same pattern as inserting a name with one difference: we will need to connect the Phone number to our Name by setting the NameID property on our Phone object. Go back to `NameInsertUtilities.cs` and add the following to the `AddPhones()` method:
+We can add data collections to names. For this example we will be associating a Phone number with our name. This will follow almost the exact same pattern as inserting a name with one difference: we will need to associate the Phone number with Name by setting the NameID property on our Phone object. Go back to `NameInsertUtilities.cs` and add the following to the `AddPhones()` method:
 
 ```csharp
 //Create phone object
@@ -165,11 +167,18 @@ client.Submit(updatePhone);
 
 Run the program and you should now see in the Updated Name Information sections an updated Phone number.
 
-**Run `git checkout update-phone` to get to completed step**
-
 ####6. Practice
 
-There are stubbed out methods in `NameInsertUtilities.cs` and `NameUpdateUtilities.cs` for inserting and updating various collections. You'll need to have the insert method for a particular entity finished before you can implement the update method for that entity. I recommend going through and filling out all the data for the insert methods before doing the update methods. The information you need to complete them is found in the comments of each block.
+There are stubbed out methods in `NameInsertUtilities.cs` and `NameUpdateUtilities.cs` for inserting and updating various Name collections. You'll need to have the insert method for a particular entity finished before you can implement the update method for that entity. The information you need to complete them is found in the comments of each block. The codes for each entity will vary depending on the database the API is pointed at. You can get the completed code for each insert/updae by running one of the following:
+
+- `git checkout address`
+- `git checkout email`
+- `git checkout name-event`
+- `git checkout name-attribute`
+- `git checkout name-note`
+- `git checkout name-task`
+
+> Run `git checkout complete` if you want to get the completed project
 
 
 
