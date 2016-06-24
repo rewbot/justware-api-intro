@@ -135,7 +135,6 @@ namespace JustWareApiIntro
 		public NameNote AddNameNotes(JustWareApiClient client, int nameId)
 		{
 			//Create NameNote object
-			NameNote note = new NameNote();
 
 			//Fill out info - Operation, DateTaken = DateTime.Now, Notes, TakenBy = client.GetCallerNameID(), NameId
 
