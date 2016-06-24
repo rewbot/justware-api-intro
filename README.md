@@ -192,6 +192,8 @@ foreach (Key key in keys)
 return client.GetPhone(phoneId);
 ```
 
+####5. Get Name with Collections
+
 You may have noticed in the `GetName()` or `FindNames()` methods that there were 2 parameters. The second parameter we’ve always been specifying as null.  This parameter, IncludedCollections, allows us to specify which, if any, of the children objects to bring back. In our case we only have Phone collections to bring back. In `Program.cs` replace the contents of `GetNameWithCollections()` with the following:
 
 ```csharp
@@ -216,7 +218,7 @@ collections.Add("Tasks");
 
 **NOTE: In a real implementation you only want to return the collections you will actually be using.**
 
-####5. Update Phone collection
+####6. Update Phone collection
 > Run `git checkout update-phone` to complete this step
 
 We will be following the same pattern as our Name update for updating Phones. Open `NameUpdateUtilities.cs` and add the following to `UpdatePhones`:
@@ -239,7 +241,7 @@ client.Submit(updatePhone);
 
 Run the program and you should now see in the Updated Name Information sections an updated Phone number.
 
-####6. Practice
+####7. Practice
 
 There are stubbed out methods in `NameInsertUtilities.cs` and `NameUpdateUtilities.cs` for inserting and updating various Name collections. You'll need to have the insert method for a particular entity finished before you can implement the update method for that entity. The information you need to complete them is found in the comments of each block. The codes for each entity will vary depending on the database the API is pointed at. You can get the completed code for each insert/updae by running one of the following:
 
