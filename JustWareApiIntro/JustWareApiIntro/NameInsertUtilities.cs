@@ -80,8 +80,15 @@ namespace JustWareApiIntro
 			phone.Number = "111-111-1111";
 			phone.NameID = nameId;
 
+			Phone phone2 = new Phone();
+			phone2.Operation = OperationType.Insert;
+			phone2.TypeCode = "HP";
+			phone2.Number = "999-999-9999";
+			phone2.NameID = nameId;
+
 			//Submit Phone object and set keys
 			List<Key> keys = client.Submit(phone);
+			client.Submit(phone2);
 
 			//Use keys to get new Phone object from database
 			int phoneId = keys[0].NewID;
@@ -95,16 +102,32 @@ namespace JustWareApiIntro
 			//Initialize collection on Name entity
 			name.Phones = new List<Phone>();
 
-			//Create object and fill out inof
-			Phone phone = new Phone();
-			phone.Operation = OperationType.Insert;
-			phone.TypeCode = "HP";
-			phone.Number = "111-111-1111";
-			name.Phones.Add(phone);
+			//Create object and fill out info
+			Phone phone1 = new Phone();
+			phone1.Operation = OperationType.Insert;
+			phone1.TempID = "Phone1";
+			phone1.TypeCode = "HP";
+			phone1.Number = "111-111-1111";
+			name.Phones.Add(phone1);
+
+			Phone phone2 = new Phone();
+			phone2.Operation = OperationType.Insert;
+			phone2.TempID = "Phone2";
+			phone2.TypeCode = "HP";
+			phone2.Number = "333-333-3333";
+			name.Phones.Add(phone2);
 
 			//Submit the Name
 			List<Key> keys = client.Submit(name);
-			int phoneId = keys[0].NewID;
+
+			int phoneId = 0;
+			foreach (Key key in keys)
+			{
+				if (key.TempID == "Phone1")
+				{
+					phoneId = key.NewID;
+				}
+			}
 
 			return client.GetPhone(phoneId);
 		}

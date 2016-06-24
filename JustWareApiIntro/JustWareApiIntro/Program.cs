@@ -48,7 +48,7 @@ namespace JustWareApiIntro
 			}
 
 			int nameId = name.ID;
-			Phone phone = insertUtil.AddPhones(client, nameId);
+			Phone phone = insertUtil.AddPhones(client, name.ID);
 			Address address = insertUtil.AddAddresses(client, nameId);
 			Email email = insertUtil.AddEmail(client, nameId);
 			NameEvent nameEvent = insertUtil.AddNameEvents(client, nameId);
@@ -123,7 +123,12 @@ namespace JustWareApiIntro
 
 			if (name.Phones.Count > 0)
 			{
-				Console.WriteLine("Phones: {0}", name.Phones[0].Number);
+				Console.Write("Phones:");
+				foreach (Phone phone in name.Phones)
+				{
+					Console.Write(" " + phone.Number);
+				}
+				Console.WriteLine();
 			}
 			if (name.Addresses.Count > 0)
 			{
