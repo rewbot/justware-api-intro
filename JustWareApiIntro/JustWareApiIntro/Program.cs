@@ -110,7 +110,12 @@ namespace JustWareApiIntro
 
 			if (name.Phones.Count > 0)
 			{
-				Console.WriteLine("Phones: {0}", name.Phones[0].Number);
+				Console.Write("Phones:");
+				foreach (Phone phone in name.Phones)
+				{
+					Console.Write(" " + phone.Number);
+				}
+				Console.WriteLine();
 			}
 			if (name.Addresses.Count > 0)
 			{
