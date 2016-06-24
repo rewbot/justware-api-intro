@@ -1,14 +1,23 @@
 # Introduction to JustWare API Coding
 Welcome to a beginning introduction to using the JustWare API
 
-This project is a console application written in C# that demonstrates the basic concepts of the JustWare API. The API is based on entities. There are 121 different types of entities. You can interact with entities by using a Submit, GetEntity, or FindEntity. A list of entities and required fields can be found in the Entities section of the [API Documentation](http://www.documentation.newdawn.com/api/). The training covers the following:
+This project is a console application written in C# that demonstrates the basic concepts of the JustWare API. The API is based on entities. You can interact with entities by using a Submit, GetEntity, or FindEntity. A list of entities and required fields can be found in the Entities section of the [API Documentation](http://www.documentation.newdawn.com/api/). The training covers the following:
 
 - Inserts (entity and entity collections)
 - Updates (entity and entity collections)
 - Deletes
 - Gets
 
-The API service reference has been configured for you already. If you want use your own API service reference you'll have to remove the existing one and configure the new one. Information on setting up your own API can be found in the Getting Started section of the [API Documentation](http://www.documentation.newdawn.com/api/).
+To setup the API service reference:
+
+1. In the Solution Explorer, right click on References -> Add Service Reference... The "Add Service Reference Dialog" should be visible.
+2. In the address portion paste your JustWare API URL and click Go. You will be prompted to authenticate the request. Click Yes and input the username and password for your JustWare API user.
+3. Change the Namespace name to JustWareApi and then click Advanced...
+4. Uncheck "Allow generation of asynchronous operations" 
+5. In the Data Type section click the Collection Type dropdown and change it to System.Collections.Generic.List
+6. Click OK, and then click Ok again on the main dialog. The reference errors in the application should now be resolved.
+
+For more information on setting up your own API check out the Getting Started section of the [API Documentation](http://www.documentation.newdawn.com/api/).
 
 #### 1. Initialize the Client
 > Run `git checkout initialize-client` to complete this step
@@ -119,6 +128,70 @@ Phone newPhone = client.GetPhone(phoneId);
 return newPhone;
 ```
 
+You can submit multiple Phone objects on the Name. You simply have to create another Phone object, fill out the required information and submit that object. 
+
+There is another method for adding collections to an entity. The main difference is that we don't have to set the NameID on our collection entity. Instead you would add the Phone to the Phones collection of the name as demonstrated in `AddPhones2()`:
+
+```csharp
+public Phone AddPhones2(JustWareApiClient client, Name name)
+{
+	//Initialize collection on Name entity
+	name.Phones = new List<Phone>();
+
+	//Create object and fill out info
+	Phone phone1 = new Phone();
+	phone1.Operation = OperationType.Insert;
+	phone1.TempID = "Phone1";
+	phone1.TypeCode = "HP";
+	phone1.Number = "111-111-1111";
+	//Add the Phone to the Phones collection
+	name.Phones.Add(phone1);
+
+	//Submit the Name
+	List<Key> keys = client.Submit(name);
+	int phoneId = keys[0].NewID;
+
+	return client.GetPhone(phoneId);
+}
+```
+
+This method allows you to add multiple entity objects to a collections with only one submit. When we perform the Submit we will have a key returned for each object submitted. To determine which ID corresponds to which object you can specify a TempID when you are filling out the information for that object. You can then iterate over the keys and select the one you want based on the TempID name. Here is the `AddPhones2()` method with the updated changes:
+
+```csharp
+//Initialize collection on Name entity
+name.Phones = new List<Phone>();
+
+//Create object and fill out info
+Phone phone1 = new Phone();
+phone1.Operation = OperationType.Insert;
+phone1.TempID = "Phone1"; //Set the TempID
+phone1.TypeCode = "HP";
+phone1.Number = "111-111-1111";
+name.Phones.Add(phone1);
+
+Phone phone2 = new Phone();
+phone2.Operation = OperationType.Insert;
+phone2.TempID = "Phone2"; //Set the TempID
+phone2.TypeCode = "HP";
+phone2.Number = "333-333-3333";
+name.Phones.Add(phone2);
+
+//Submit the Name
+List<Key> keys = client.Submit(name);
+
+int phoneId = 0;
+foreach (Key key in keys)
+{
+	//We want the first Phone object
+	if (key.TempID == "Phone1")
+	{
+		phoneId = key.NewID;
+	}
+}
+
+return client.GetPhone(phoneId);
+```
+
 You may have noticed in the `GetName()` or `FindNames()` methods that there were 2 parameters. The second parameter we’ve always been specifying as null.  This parameter, IncludedCollections, allows us to specify which, if any, of the children objects to bring back. In our case we only have Phone collections to bring back. In `Program.cs` replace the contents of `GetNameWithCollections()` with the following:
 
 ```csharp
@@ -139,7 +212,6 @@ collections.Add("Events");
 collections.Add("Attributes");
 collections.Add("Notes");
 collections.Add("Tasks");
-
 ```
 
 **NOTE: In a real implementation you only want to return the collections you will actually be using.**
