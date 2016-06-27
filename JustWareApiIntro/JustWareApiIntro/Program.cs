@@ -22,6 +22,8 @@ namespace JustWareApiIntro
 			}
 
 			//Verify that connection is working
+			int nameId = client.GetCallerNameID();
+			Console.WriteLine("Caller nameId: " + nameId);
 
 			//Name insert and update
 			var name = PopulateNameInformation(client);
